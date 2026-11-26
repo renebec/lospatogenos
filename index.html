@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LosPatogenos — Rock Alternativo | Sitio Oficial</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Tipografía editorial y monoespaciada estilo cinta analógica -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <!-- Font Awesome para iconografía limpia -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#0b0b0c',
+            charcoal: '#141417',
+            slateDark: '#1e1f24',
+            bone: '#ece9e2',
+            ash: '#9a9891',
+            copper: '#b86b35',
+            copperLight: '#d48248',
+          },
+          fontFamily: {
+            display: ['Cinzel', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Space Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* Textura sutil de grano analógico para evocar portadas y fotografía en 35mm de los 90-2000 */
+    .analog-grain {
+      background-image: radial-gradient(rgba(236, 233, 226, 0.04) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    /* Filtro cinematográfico de alto contraste para los retratos de los integrantes */
+    .portrait-filter {
+      filter: grayscale(100%) contrast(118%) brightness(92%);
+      transition: filter 0.6s ease, transform 0.8s ease;
+    }
+    .portrait-card:hover .portrait-filter {
+      filter: grayscale(85%) contrast(125%) brightness(98%);
+      transform: scale(1.02);
+    }
+
+    /* Animación sutil del ecualizador cuando un tema está en reproducción */
+    @keyframes eqPulse {
+      0%, 100% { height: 4px; }
+      50% { height: 16px; }
+    }
+    .eq-bar {
+      animation: eqPulse 0.9s infinite ease-in-out;
+    }
+    .eq-bar:nth-child(2) { animation-delay: 0.2s; }
+    .eq-bar:nth-child(3) { animation-delay: 0.4s; }
+    .eq-bar:nth-child(4) { animation-delay: 0.1s; }
+
+    /* Personalización de barra de desplazamiento */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b0b0c;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2b2c33;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #b86b35;
+    }
+  </style>
+</head>
+<body class="bg-obsidian text-bone font-sans antialiased analog-grain selection:bg-copper selection:text-bone pb-28">
+
+  <!-- NAVEGACIÓN SUPERIOR MINIMALISTA -->
+  <header class="fixed top-0 inset-x-0 z-40 bg-obsidian/85 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+      <a href="#inicio" class="font-display text-lg sm:text-xl tracking-[0.25em] font-bold text-bone hover:text-copperLight transition-colors">
+        LOS PATÓGENOS
+      </a>
+
+      <!-- Menú Desktop -->
+      <nav class="hidden md:flex items-center space-x-8 font-mono text-xs uppercase tracking-widest text-ash">
+        <a href="#integrantes" class="hover:text-bone transition-colors">01. Integrantes</a>
+        <a href="#discografia" class="hover:text-bone transition-colors">02. Archivo Sonoro</a>
+        <a href="#fechas" class="hover:text-bone transition-colors">03. Sesiones en Vivo</a>
+      </nav>
+
+      <!-- Botón móvil -->
+      <button id="mobile-menu-btn" aria-label="Abrir menú" class="md:hidden p-2 text-ash hover:text-bone focus:outline-none">
+        <i class="fa-solid fa-bars text-lg"></i>
+      </button>
+    </div>
+
+    <!-- Menú Móvil desplegable -->
+    <div id="mobile-menu" class="hidden md:hidden bg-charcoal border-b border-white/10 px-6 py-4 space-y-3 font-mono text-xs uppercase tracking-widest">
+      <a href="#integrantes" class="block py-2 text-ash hover:text-bone">01. Integrantes</a>
+      <a href="#discografia" class="block py-2 text-ash hover:text-bone">02. Archivo Sonoro</a>
+      <a href="#fechas" class="block py-2 text-ash hover:text-bone">03. Sesiones en Vivo</a>
+    </div>
+  </header>
+
+  <!-- SECCIÓN 1: HERO ATMOSFÉRICO -->
+  <section id="inicio" class="relative min-h-[88vh] flex items-center justify-center pt-20 pb-16 px-5 sm:px-8 overflow-hidden border-b border-white/10">
+    <!-- Imagen ambiental oscura de fondo con fallback -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1920&q=80"
+        onerror="this.src='https://placehold.co/1920x1080/0b0b0c/222222?text=VERTICE+GRIS'"
+        alt="Escenario atmosférico con humo y luces tenues"
+        class="w-full h-full object-cover opacity-20 grayscale contrast-125"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-obsidian/70 via-obsidian/85 to-obsidian"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto text-center space-y-8">
+      <div class="inline-flex items-center space-x-3 px-4 py-1.5 rounded-full border border-white/15 bg-charcoal/80 font-mono text-[11px] uppercase tracking-[0.2em] text-copperLight">
+        <span class="w-2 h-2 rounded-full bg-copper animate-pulse"></span>
+        <span>Cinta Analógica • 2026 — Presente</span>
+      </div>
+
+      <h1 class="font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-[0.18em] text-bone leading-tight">
+        LOS PATÓGENOS
+      </h1>
+
+      <p class="max-w-2xl mx-auto text-base sm:text-lg text-ash font-light leading-relaxed">
+        band.
+      </p>
+
+      <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#discografia" class="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-copper hover:bg-copperLight text-bone font-mono text-xs uppercase tracking-[0.2em] transition-all shadow-lg shadow-copper/10">
+          <i class="fa-solid fa-play mr-2 text-[10px]"></i> Escuchar Archivo
+        </a>
+        <a href="#integrantes" class="w-full sm:w-auto px-8 py-3.5 rounded-lg border border-white/20 hover:border-bone text-bone font-mono text-xs uppercase tracking-[0.2em] transition-colors">
+          Conocer a la Banda
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 2: CARRUSEL DE LOS 4 INTEGRANTES (30 - 49 AÑOS) -->
+  <section id="integrantes" class="py-20 sm:py-28 px-5 sm:px-8 border-b border-white/10">
+    <div class="max-w-6xl mx-auto">
+      <!-- Encabezado de sección -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.25em] text-copper mb-2">01 // Alineación Original</p>
+          <h2 class="font-display text-2xl sm:text-4xl tracking-[0.12em] text-bone font-semibold">
+            CUATRO ELEMENTOS
+          </h2>
+        </div>
+      </div>
+
+      <!-- Contenedor Principal del Carrusel -->
+      <div class="relative bg-charcoal border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+        <!-- Pista de Slides -->
+        <div id="carousel-track" class="transition-opacity duration-300">
+          <!-- El contenido dinámico de la diapositiva activa se inyecta desde JS para máxima limpieza y accesibilidad -->
+        </div>
+
+        <!-- Barra Inferior de Control del Carrusel -->
+        <div class="bg-slateDark/80 border-t border-white/10 px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+          <!-- Indicador tipo contador analógico -->
+          <div class="flex items-center space-x-4">
+            <span id="slide-counter" class="font-mono text-sm tracking-widest text-bone">
+              01 <span class="text-ash">/ 04</span>
+            </span>
+            <div id="slide-dots" class="flex items-center space-x-2">
+              <!-- Puntos indicadores generados por JS -->
+            </div>
+          </div>
+
+          <!-- Botones de Navegación Anterior / Siguiente -->
+          <div class="flex items-center space-x-3">
+            <button
+              id="prev-member"
+              aria-label="Integrante anterior"
+              class="px-4 py-2.5 rounded-lg border border-white/15 hover:border-copper text-bone hover:text-copperLight font-mono text-xs uppercase tracking-wider transition-colors flex items-center space-x-2"
+            >
+              <i class="fa-solid fa-arrow-left"></i>
+              <span class="hidden sm:inline">Anterior</span>
+            </button>
+            <button
+              id="next-member"
+              aria-label="Siguiente integrante"
+              class="px-4 py-2.5 rounded-lg border border-white/15 hover:border-copper text-bone hover:text-copperLight font-mono text-xs uppercase tracking-wider transition-colors flex items-center space-x-2"
+            >
+              <span class="hidden sm:inline">Siguiente</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 3: LISTA DE TEMAS Y NOTAS DE ESTUDIO -->
+  <section id="discografia" class="py-20 sm:py-28 px-5 sm:px-8 border-b border-white/10">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.25em] text-copper mb-2">02 // Grabaciones de Estudio</p>
+          <h2 class="font-display text-2xl sm:text-4xl tracking-[0.12em] text-bone font-semibold">
+            ARCHIVO SONORO
+          </h2>
+        </div>
+        <p class="font-mono text-xs text-ash uppercase tracking-wider">
+          Selecciona un corte para reproducir &bull; Mezcla en cinta de 2 pulgadas
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Columna Izquierda: Lista de Temas (7 columnas en desktop) -->
+        <div class="lg:col-span-7 bg-charcoal border border-white/10 rounded-xl overflow-hidden">
+          <div class="px-5 py-3.5 bg-slateDark/60 border-b border-white/10 grid grid-cols-12 font-mono text-[11px] uppercase tracking-widest text-ash">
+            <div class="col-span-2 sm:col-span-1">#</div>
+            <div class="col-span-7 sm:col-span-6">Título del Tema</div>
+            <div class="hidden sm:block sm:col-span-3">Álbum / Año</div>
+            <div class="col-span-3 sm:col-span-2 text-right">Duración</div>
+          </div>
+
+          <ul id="tracklist-container" class="divide-y divide-white/5">
+            <!-- Los temas se renderizan dinámicamente con JS -->
+          </ul>
+        </div>
+
+        <!-- Columna Derecha: Ficha Técnica y Fragmento Lírico del Tema Activo (5 columnas) -->
+        <div class="lg:col-span-5 bg-charcoal border border-white/10 rounded-xl p-6 sm:p-8 sticky top-24 space-y-6">
+          <div class="flex items-center justify-between border-b border-white/10 pb-4">
+            <span class="font-mono text-xs uppercase tracking-widest text-copperLight">
+              <i class="fa-solid fa-compact-disc mr-2"></i>Bitácora de Grabación
+            </span>
+            <span id="detail-year" class="font-mono text-xs text-ash px-2.5 py-1 rounded bg-obsidian border border-white/10">
+              2001
+            </span>
+          </div>
+
+          <div>
+            <h3 id="detail-title" class="font-display text-2xl text-bone tracking-wide mb-1">
+              El Funk de La Negra
+            </h3>
+            <p id="detail-album" class="font-mono text-xs text-ash uppercase tracking-widest">
+              Álbum: Estructuras Frágiles
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <h4 class="font-mono text-[11px] uppercase tracking-widest text-ash">Nota de Estudio &amp; Equipamiento</h4>
+            <p id="detail-notes" class="text-sm text-bone/85 leading-relaxed font-light">
+              Grabada en una sola toma nocturna con afinación en Drop D. Destaca la interacción entre el bajo con 
+              overdrive ligero y los arpegios limpios antes de la explosión del coro.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-lg bg-obsidian/80 border-l-2 border-copper space-y-2">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-copper block">Fragmento Lírico</span>
+            <p id="detail-lyrics" class="font-mono text-xs text-ash italic leading-relaxed whitespace-pre-line">
+              "No es cuento de rancho, ni rosa de abril,
+                es pura descarga de madrugada;
+                si miras muy cerca, te quema el perfil,
+                si entras al juego, no hay retirada.."
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 4: PRÓXIMAS SESIONES EN VIVO (PARA FANS) -->
+  <section id="fechas" class="py-20 sm:py-24 px-5 sm:px-8">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-12">
+        <p class="font-mono text-xs uppercase tracking-[0.25em] text-copper mb-2">03 // Circuito Íntimo</p>
+        <h2 class="font-display text-2xl sm:text-4xl tracking-[0.12em] text-bone font-semibold">
+          PRÓXIMAS FECHAS
+        </h2>
+      </div>
+
+      <div class="divide-y divide-white/10 border-t border-b border-white/10">
+        <!-- Fecha 1 -->
+        <div class="py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-white/[0.02] px-3 rounded-lg transition-colors">
+          <div class="flex items-center space-x-6">
+            <div class="font-mono text-center min-w-[68px]">
+              <span class="block text-xl font-bold text-bone">14</span>
+              <span class="block text-xs uppercase text-copper">NOV</span>
+            </div>
+            <div>
+              <h3 class="text-base sm:text-lg font-medium text-bone">Foro Indie Rocks! — Sala A</h3>
+              <p class="text-xs sm:text-sm text-ash">Ciudad de México &bull; Set extendido 25 aniversario</p>
+            </div>
+          </div>
+          <button onclick="showNotification('Acceso reservado: Te hemos redirigido a la lista de preventa exclusiva para fans.')" class="self-start sm:self-center px-5 py-2.5 rounded-lg border border-white/20 hover:border-copper hover:text-copperLight font-mono text-xs uppercase tracking-widest transition-colors">
+            Boletos
+          </button>
+        </div>
+
+        <!-- Fecha 2 -->
+        <div class="py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-white/[0.02] px-3 rounded-lg transition-colors">
+          <div class="flex items-center space-x-6">
+            <div class="font-mono text-center min-w-[68px]">
+              <span class="block text-xl font-bold text-bone">28</span>
+              <span class="block text-xs uppercase text-copper">NOV</span>
+            </div>
+            <div>
+              <h3 class="text-base sm:text-lg font-medium text-bone">C3 Stage — Sesión Nocturna</h3>
+              <p class="text-xs sm:text-sm text-ash">Guadalajara, Jal. &bull; Invitados: Señal Estática</p>
+            </div>
+          </div>
+          <button onclick="showNotification('Acceso reservado: Te hemos redirigido a la lista de preventa exclusiva para fans.')" class="self-start sm:self-center px-5 py-2.5 rounded-lg border border-white/20 hover:border-copper hover:text-copperLight font-mono text-xs uppercase tracking-widest transition-colors">
+            Boletos
+          </button>
+        </div>
+
+        <!-- Fecha 3 -->
+        <div class="py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-white/[0.02] px-3 rounded-lg transition-colors">
+          <div class="flex items-center space-x-6">
+            <div class="font-mono text-center min-w-[68px]">
+              <span class="block text-xl font-bold text-bone">12</span>
+              <span class="block text-xs uppercase text-copper">DIC</span>
+            </div>
+            <div>
+              <h3 class="text-base sm:text-lg font-medium text-bone">Café Iguana — Escenario Principal</h3>
+              <p class="text-xs sm:text-sm text-ash">Monterrey, N.L. &bull; Cierre de gira anual</p>
+            </div>
+          </div>
+          <span class="self-start sm:self-center px-4 py-2 rounded-lg bg-white/5 text-ash font-mono text-xs uppercase tracking-widest">
+            Agotado
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="border-t border-white/10 py-10 px-5 sm:px-8 text-center sm:text-left">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <span class="font-display text-sm tracking-[0.25em] text-bone font-bold">LOS PATÓGENOS</span>
+        <p class="font-mono text-[11px] text-ash mt-1">Archivo Oficial &bull; Todos los derechos reservados.</p>
+      </div>
+      <div class="flex items-center space-x-6 text-ash">
+        <a href="#inicio" aria-label="Spotify" class="hover:text-copperLight transition-colors"><i class="fa-brands fa-spotify text-lg"></i></a>
+        <a href="#inicio" aria-label="Bandcamp" class="hover:text-copperLight transition-colors"><i class="fa-brands fa-bandcamp text-lg"></i></a>
+        <a href="#inicio" aria-label="YouTube" class="hover:text-copperLight transition-colors"><i class="fa-brands fa-youtube text-lg"></i></a>
+        <a href="#inicio" aria-label="Instagram" class="hover:text-copperLight transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- REPRODUCTOR ANALÓGICO INFERIOR FIJO -->
+  <div class="fixed bottom-0 inset-x-0 z-50 bg-charcoal/95 backdrop-blur-md border-t border-white/15 px-4 sm:px-8 py-3 shadow-2xl">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
+      <!-- Info de la pista actual -->
+      <div class="flex items-center space-x-3 min-w-0 flex-1">
+        <div class="w-10 h-10 rounded-lg bg-obsidian border border-white/15 flex items-center justify-center shrink-0">
+          <i id="player-disc-icon" class="fa-solid fa-compact-disc text-copper text-lg"></i>
+        </div>
+        <div class="truncate">
+          <p id="player-title" class="text-sm font-medium text-bone truncate">La madriguera del groove</p>
+          <p id="player-subtitle" class="font-mono text-[11px] text-ash truncate">Magnetar (2026)</p>
+        </div>
+      </div>
+
+      <!-- Controles Centrales y Barra de Progreso -->
+      <div class="flex flex-col items-center flex-1 max-w-md">
+        <div class="flex items-center space-x-5 mb-1.5">
+          <button id="player-prev" aria-label="Tema anterior" class="text-ash hover:text-bone transition-colors p-1">
+            <i class="fa-solid fa-backward-step"></i>
+          </button>
+          <button id="player-play-pause" aria-label="Reproducir o pausar" class="w-9 h-9 rounded-full bg-copper hover:bg-copperLight text-bone flex items-center justify-center transition-colors shadow">
+            <i id="player-play-icon" class="fa-solid fa-play text-xs ml-0.5"></i>
+          </button>
+          <button id="player-next" aria-label="Siguiente tema" class="text-ash hover:text-bone transition-colors p-1">
+            <i class="fa-solid fa-forward-step"></i>
+          </button>
+        </div>
+
+        <div class="w-full flex items-center space-x-2 font-mono text-[10px] text-ash">
+          <span id="player-current-time">00:00</span>
+          <div id="progress-container" class="flex-1 h-1.5 bg-obsidian rounded-full overflow-hidden cursor-pointer border border-white/10">
+            <div id="progress-bar" class="h-full bg-copper w-0 transition-all duration-200"></div>
+          </div>
+          <span id="player-total-time">04:18</span>
+        </div>
+      </div>
+
+      <!-- Indicador de Nivel / Estado -->
+      <div class="hidden md:flex items-center justify-end space-x-3 flex-1 font-mono text-[11px] text-ash">
+        <span id="player-status-text" class="uppercase tracking-widest">En espera</span>
+        <div class="flex items-end space-x-1 h-4 w-5">
+          <span class="w-1 bg-copper/40 rounded-t transition-all" id="eq-1" style="height: 4px;"></span>
+          <span class="w-1 bg-copper/40 rounded-t transition-all" id="eq-2" style="height: 4px;"></span>
+          <span class="w-1 bg-copper/40 rounded-t transition-all" id="eq-3" style="height: 4px;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFICACIÓN FLOTANTE PERSONALIZADA (SIN ALERT) -->
+  <div id="toast-box" class="fixed top-20 right-5 z-50 hidden max-w-sm bg-slateDark border border-copper/50 text-bone px-5 py-3.5 rounded-xl shadow-2xl font-mono text-xs leading-relaxed">
+    <div class="flex items-start space-x-3">
+      <i class="fa-solid fa-circle-info text-copperLight mt-0.5"></i>
+      <span id="toast-message">Mensaje del sistema</span>
+    </div>
+  </div>
+
+  <!-- LÓGICA DE INTERACTIVIDAD EN JAVASCRIPT -->
+  <script>
+    // =========================================================================
+    // 1. DATOS DE LOS 4 INTEGRANTES (EDADES ENTRE 30 Y 49 AÑOS)
+    // =========================================================================
+    const bandMembers = [
+      {
+        number: "01",
+        name: "Chok",
+        role: "Baterista y símbolo sexual de la banda",
+        gear: "",
+        bio: "Poderosos trastes que retumban",
+        image: "docs/busto4.png"
+      },
+      {
+        number: "02",
+        name: "Ricky",
+        role: "Bajista y vocalista macizo",
+        gear: "",
+        bio: "Bajo ponchadote a dedo",
+        image: "docs/busto.png"
+      },
+      {
+        number: "03",
+        name: "Héctor",
+        age: "38 años",
+        role: "Guitarra principal y coros divinos",
+        gear: "",
+        bio: "Sonido virtuoso con acordes mamadores",
+        image: "docs/busto2.png"
+      },
+      {
+        number: "04",
+        name: "René",
+        role: "Guitarra y coros de borracho en karaoke",
+        gear: "",
+        bio: "Rellenando con lujo austero",
+        image: "docs/busto3.png"
+      }
+    ];
+
+    let currentMemberIndex = 0;
+
+    /**
+     * Renderiza la diapositiva activa del integrante en el carrusel.
+     */
+    function renderMemberSlide(index) {
+      const track = document.getElementById("carousel-track");
+      const counter = document.getElementById("slide-counter");
+      const dotsContainer = document.getElementById("slide-dots");
+      const member = bandMembers[index];
+
+      // Efecto suave de transición
+      track.style.opacity = "0.35";
+
+      setTimeout(() => {
+        track.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-12 items-stretch portrait-card">
+            <!-- Fotografía de retrato en alto contraste -->
+            <div class="md:col-span-5 relative h-80 sm:h-96 md:h-[460px] overflow-hidden bg-obsidian">
+              <img
+                src="${member.image}"
+                onerror="this.src='https://placehold.co/800x900/141417/ece9e2?text=${encodeURIComponent(member.name)}'"
+                alt="Retrato de ${member.name}"
+                class="w-full h-full object-cover object-center portrait-filter"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-charcoal/90"></div>
+              <span class="absolute top-4 left-4 px-3 py-1 rounded bg-obsidian/85 border border-white/15 font-mono text-xs text-copperLight">
+                INTEGRANTE ${member.number}
+              </span>
+            </div>
+
+            <!-- Información biográfica -->
+            <div class="md:col-span-7 p-6 sm:p-10 md:p-12 flex flex-col justify-center space-y-5">
+              <div class="flex flex-wrap items-center gap-3 font-mono text-xs uppercase tracking-widest text-copper">
+                <span>${member.role}</span>
+                <span class="text-white/20">&bull;</span>
+                <span class="text-ash">${member.age}</span>
+              </div>
+
+              <h3 class="font-display text-3xl sm:text-4xl text-bone tracking-wide font-semibold">
+                ${member.name}
+              </h3>
+
+              <p class="text-sm sm:text-base text-bone/85 font-light leading-relaxed">
+                ${member.bio}
+              </p>
+
+              <div class="pt-4 border-t border-white/10">
+                <span class="block font-mono text-[10px] uppercase tracking-widest text-ash mb-1">
+                  Configuración Habitual
+                </span>
+                <p class="font-mono text-xs text-bone/90">
+                  ${member.gear}
+                </p>
+              </div>
+            </div>
+          </div>
+        `;
+        track.style.opacity = "1";
+      }, 140);
+
+      // Actualizar contador 01 / 04
+      counter.innerHTML = `${member.number} <span class="text-ash">/ 0${bandMembers.length}</span>`;
+
+      // Actualizar indicadores de puntos
+      dotsContainer.innerHTML = bandMembers
+        .map(
+          (_, idx) => `
+          <button
+            onclick="goToMember(${idx})"
+            aria-label="Ir al integrante ${idx + 1}"
+            class="h-1.5 rounded-full transition-all ${
+              idx === index ? "w-7 bg-copper" : "w-2 bg-white/25 hover:bg-white/50"
+            }"
+          ></button>
+        `
+        )
+        .join("");
+    }
+
+    function goToMember(index) {
+      currentMemberIndex = (index + bandMembers.length) % bandMembers.length;
+      renderMemberSlide(currentMemberIndex);
+    }
+
+    document.getElementById("prev-member").addEventListener("click", () => {
+      goToMember(currentMemberIndex - 1);
+    });
+
+    document.getElementById("next-member").addEventListener("click", () => {
+      goToMember(currentMemberIndex + 1);
+    });
+
+    // Soporte de teclado (flechas izquierda/derecha) cuando no se escribe en inputs
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") goToMember(currentMemberIndex - 1);
+      if (e.key === "ArrowRight") goToMember(currentMemberIndex + 1);
+    });
+
+    // =========================================================================
+    // 2. LISTA DE TEMAS Y REPRODUCTOR INTERACTIVO SIMULADO
+    // =========================================================================
+    const tracks = [
+      
+      {
+        id: "01",
+        title: "Punto de Quiebre",
+        album: "Horizonte en movimiento",
+        year: "2001",
+        durationSec: 234,
+        durationStr: "03:54",
+        notes: "Riff principal construido sobre un compás de 7/8 que desemboca en un estribillo directo en 4/4. Mezclada sin compresión digital para preservar el rango dinámico de la batería.",
+        lyrics: "Sintonizo el espacio entre dos estaciones,\ndonde la estática dice más verdad\nque todas las promesas de esta ciudad."
+      },
+      {
+        id: "02",
+        title: "El Funk de La Negra",
+        album: "Horizonte en movimiento",
+        year: "2026",
+        durationSec: 258,
+        durationStr: "04:18",
+        notes: "Grabada en una sola toma nocturna con afinación en Drop D. Destaca la interacción entre el bajo con overdrive ligero y los arpegios limpios antes de la explosión del coro.",
+        lyrics: "No es cuento de rancho, ni rosa de abril, es pura descarga de madrugada; si miras muy cerca, te quema el perfil, si entras al juego, no hay retirada."
+      },
+      {
+        id: "03",
+        title: "Pulsar",
+        album: "Marea Interna",
+        year: "1999",
+        durationSec: 312,
+        durationStr: "05:12",
+        notes: "Primer sencillo subterráneo de la banda. Grabado en un estudio casero con micrófonos de cinta vintage y amplificadores al límite de saturación.",
+        lyrics: "El hierro cede lento frente al mar,\ncomo la memoria frente al paso de los años,\npero la estructura sigue en pie."
+      },
+      {
+        id: "04",
+        title: "Zafiro",
+        album: "Horizonte de Eventos",
+        year: "2004",
+        durationSec: 276,
+        durationStr: "04:36",
+        notes: "Pieza central de su tercer álbum. Introduce capas de guitarra barítono y un puente instrumental de dos minutos con eco de cinta analógica.",
+        lyrics: "Hay una línea invisible antes del colapso,\nun segundo de calma absoluta\ndonde todavía puedes elegir volver."
+      },
+      {
+        id: "05",
+        title: "Hold me tight",
+        album: "Horizonte de Eventos",
+        year: "2004",
+        durationSec: 295,
+        durationStr: "04:55",
+        notes: "Balada sombría sostenida por el bajo de Elena Rivas. La voz fue capturada con un micrófono dinámico de mano en la sala de control.",
+        lyrics: "Construimos muros altos para el frío,\nsin notar que dejamos el invierno\nviviendo dentro de la habitación."
+      },
+      {
+        id: "06",
+        title: "Tensión Superficial",
+        album: "Crónica del Ruido",
+        year: "2018",
+        durationSec: 221,
+        durationStr: "03:41",
+        notes: "Marca el regreso al estudio tras un receso de gira. Sonido crudo, directo y sin sobregrabaciones innecesarias.",
+        lyrics: "Basta una gota más sobre el borde\npara romper el equilibrio perfecto\nque fingimos sostener."
+      },
+      {
+        id: "07",
+        title: "Silueta itinerante",
+        album: "Marea Interna",
+        year: "1999",
+        durationSec: 340,
+        durationStr: "05:40",
+        notes: "Tema homónimo que cierra habitualmente los conciertos. Comienza con un pulso minimalista y crece hasta un muro de sonido denso.",
+        lyrics: "Ni blanco absoluto ni sombra total:\nhabitamos el ángulo exacto\ndonde se cruzan todas las dudas."
+      },
+      {
+        id: "08",
+        title: "Memoria en colapso",
+        album: "Sesiones de Medianoche",
+        year: "2023",
+        durationSec: 264,
+        durationStr: "04:24",
+        notes: "Grabación reciente en directo dentro del estudio. Refleja la madurez interpretativa del cuarteto tras más de dos décadas juntos.",
+        lyrics: "Las luces traseras se pierden en la niebla,\npero el motor sigue marcando el compás\nhasta el próximo amanecer."
+      }
+    ];
+
+    let currentTrackIndex = 0;
+    let isPlaying = false;
+    let elapsedSeconds = 0;
+    let playbackTimer = null;
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60).toString().padStart(2, "0");
+      const s = Math.floor(sec % 60).toString().padStart(2, "0");
+      return `${m}:${s}`;
+    }
+
+    function renderTracklist() {
+      const container = document.getElementById("tracklist-container");
+      container.innerHTML = tracks
+        .map((track, idx) => {
+          const active = idx === currentTrackIndex;
+          return `
+            <li
+              onclick="selectAndPlayTrack(${idx})"
+              class="px-5 py-4 grid grid-cols-12 items-center cursor-pointer transition-colors ${
+                active ? "bg-copper/15 text-bone" : "hover:bg-white/[0.03] text-bone/85"
+              }"
+            >
+              <div class="col-span-2 sm:col-span-1 font-mono text-xs ${
+                active ? "text-copperLight font-bold" : "text-ash"
+              }">
+                ${active && isPlaying ? '<i class="fa-solid fa-volume-high"></i>' : track.id}
+              </div>
+              <div class="col-span-7 sm:col-span-6 pr-3">
+                <p class="text-sm font-medium truncate ${active ? "text-copperLight" : "text-bone"}">
+                  ${track.title}
+                </p>
+                <p class="sm:hidden font-mono text-[10px] text-ash truncate">${track.album} (${track.year})</p>
+              </div>
+              <div class="hidden sm:block sm:col-span-3 font-mono text-xs text-ash truncate">
+                ${track.album}
+              </div>
+              <div class="col-span-3 sm:col-span-2 text-right font-mono text-xs text-ash">
+                ${track.durationStr}
+              </div>
+            </li>
+          `;
+        })
+        .join("");
+    }
+
+    function updateTrackDetails(index) {
+      const track = tracks[index];
+      document.getElementById("detail-title").textContent = track.title;
+      document.getElementById("detail-album").textContent = `Álbum: ${track.album}`;
+      document.getElementById("detail-year").textContent = track.year;
+      document.getElementById("detail-notes").textContent = track.notes;
+      document.getElementById("detail-lyrics").textContent = `"${track.lyrics}"`;
+
+      // Actualizar reproductor inferior
+      document.getElementById("player-title").textContent = track.title;
+      document.getElementById("player-subtitle").textContent = `${track.album} (${track.year})`;
+      document.getElementById("player-total-time").textContent = track.durationStr;
+      document.getElementById("player-current-time").textContent = formatTime(elapsedSeconds);
+      const pct = (elapsedSeconds / track.durationSec) * 100;
+      document.getElementById("progress-bar").style.width = `${pct}%`;
+    }
+
+    function updatePlayerUIState() {
+      const playIcon = document.getElementById("player-play-icon");
+      const discIcon = document.getElementById("player-disc-icon");
+      const statusText = document.getElementById("player-status-text");
+      const eqBars = [document.getElementById("eq-1"), document.getElementById("eq-2"), document.getElementById("eq-3")];
+
+      if (isPlaying) {
+        playIcon.className = "fa-solid fa-pause text-xs";
+        discIcon.classList.add("fa-spin");
+        statusText.textContent = "Reproduciendo";
+        statusText.classList.add("text-copperLight");
+        eqBars.forEach((bar) => {
+          bar.classList.remove("bg-copper/40");
+          bar.classList.add("bg-copperLight", "eq-bar");
+        });
+      } else {
+        playIcon.className = "fa-solid fa-play text-xs ml-0.5";
+        discIcon.classList.remove("fa-spin");
+        statusText.textContent = "En pausa";
+        statusText.classList.remove("text-copperLight");
+        eqBars.forEach((bar) => {
+          bar.classList.add("bg-copper/40");
+          bar.classList.remove("bg-copperLight", "eq-bar");
+          bar.style.height = "4px";
+        });
+      }
+      renderTracklist();
+    }
+
+    function startPlaybackLoop() {
+      clearInterval(playbackTimer);
+      playbackTimer = setInterval(() => {
+        if (!isPlaying) return;
+        const currentTrack = tracks[currentTrackIndex];
+        elapsedSeconds += 1;
+
+        if (elapsedSeconds >= currentTrack.durationSec) {
+          // Pasar automáticamente al siguiente tema
+          selectAndPlayTrack((currentTrackIndex + 1) % tracks.length);
+          return;
+        }
+
+        document.getElementById("player-current-time").textContent = formatTime(elapsedSeconds);
+        const pct = (elapsedSeconds / currentTrack.durationSec) * 100;
+        document.getElementById("progress-bar").style.width = `${pct}%`;
+      }, 1000);
+    }
+
+    function selectAndPlayTrack(index) {
+      if (currentTrackIndex === index) {
+        togglePlayPause();
+        return;
+      }
+      currentTrackIndex = index;
+      elapsedSeconds = 0;
+      isPlaying = true;
+      updateTrackDetails(currentTrackIndex);
+      updatePlayerUIState();
+      startPlaybackLoop();
+    }
+
+    function togglePlayPause() {
+      isPlaying = !isPlaying;
+      updatePlayerUIState();
+      if (isPlaying) {
+        startPlaybackLoop();
+      } else {
+        clearInterval(playbackTimer);
+      }
+    }
+
+    document.getElementById("player-play-pause").addEventListener("click", togglePlayPause);
+
+    document.getElementById("player-prev").addEventListener("click", () => {
+      const prevIdx = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+      currentTrackIndex = prevIdx;
+      elapsedSeconds = 0;
+      isPlaying = true;
+      updateTrackDetails(currentTrackIndex);
+      updatePlayerUIState();
+      startPlaybackLoop();
+    });
+
+    document.getElementById("player-next").addEventListener("click", () => {
+      const nextIdx = (currentTrackIndex + 1) % tracks.length;
+      currentTrackIndex = nextIdx;
+      elapsedSeconds = 0;
+      isPlaying = true;
+      updateTrackDetails(currentTrackIndex);
+      updatePlayerUIState();
+      startPlaybackLoop();
+    });
+
+    // Permitir adelantar/atrasar haciendo clic en la barra de progreso
+    document.getElementById("progress-container").addEventListener("click", (e) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const ratio = Math.max(0, Math.min(1, clickX / rect.width));
+      elapsedSeconds = Math.floor(ratio * tracks[currentTrackIndex].durationSec);
+      updateTrackDetails(currentTrackIndex);
+    });
+
+    // =========================================================================
+    // 3. UTILIDADES DE INTERFAZ (MENÚ MÓVIL Y NOTIFICACIONES)
+    // =========================================================================
+    const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    mobileMenuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    mobileMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => mobileMenu.classList.add("hidden"));
+    });
+
+    let toastTimeout = null;
+    function showNotification(msg) {
+      const toast = document.getElementById("toast-box");
+      const toastMsg = document.getElementById("toast-message");
+      toastMsg.textContent = msg;
+      toast.classList.remove("hidden");
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 4000);
+    }
+
+    // Inicialización al cargar la página
+    window.addEventListener("DOMContentLoaded", () => {
+      renderMemberSlide(0);
+      renderTracklist();
+      updateTrackDetails(0);
+    });
+  </script>
+</body>
+</html>
